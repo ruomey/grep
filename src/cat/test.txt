@@ -1,3 +1,11 @@
+<<<<<<< HEAD
 Hello everybody out there using minix.
 I'm doing a (free) operating system (just a hobby, won't be big and professional like gnu) for 386(486) AT clones.
 I've currently ported bash(1.08) and gcc(1.40), and things seem to work.
+=======
+123456
+Sdfghsh
+Dfsgdsfgsd
+Sdfgdsfgsdfg
+Sdfsdf
+>>>>>>> origin/develop
