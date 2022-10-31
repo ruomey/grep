@@ -3,6 +3,7 @@
 #include "cat.h"
 
 
+
 int change_flags(char *argv) {
     int flag = 0;
     if (strcmp(argv, "-e") == 0 || strcmp(argv, "-E") == 0){
@@ -34,30 +35,32 @@ void flag_e(char ch){
         printf("%c", ch);
     }
 }
-void flag_b(char ch){
-    int n = 1;
-    if (ch != EOF && ch != '\n') {
-        printf("     %d  ", n);
-            if (ch == '\n') {
-                n++;
-                printf("\n     %d  ", n);
-            } else {
-                printf("%c", ch);
-            }
-    }
-}
-
 void flag_n(char ch, int count){
         if (ch == '\n') {
             printf("\n     %d  ", count);
         } else {
             printf("%c", ch);
         }
+}
+void flag_b(char ch, int *word){
+    int n = 1;
+    if (ch == '\n'){
+        *word = 0;
+        printf("\n\n");
+    } else {
+        if (!word) {
+            printf("     %d %c", n, ch);
+            *word = 1;
+            n++;
+        } else {
+            printf("%c", ch);
+        }
     }
+}
 void void_string(char ch, int *flag_end_str, int *flag_str_void, int *count_void_str){
         if (ch == '\n') {
             if (!(*flag_str_void) && !(*flag_end_str)) {
-                *flag_end_str = 1;
+                printf("     %d  ", *count_void_str);
             } else if ((*flag_end_str) && !(*flag_str_void)){
                 *flag_str_void = 1;
                 (*count_void_str)++;
@@ -78,12 +81,14 @@ void open_file(int argc, char *argv[ARG_MAX], int opiton){
         FILE *file = fopen(argv[i], "r");
         char ch = ' ';
         if (file != NULL) {
-            int flag_end_str = 0, flag_str_void = 0, count_void_str = 0;
+            // int flag_end_str = 0, flag_str_void = 0;
+            int word = 0;
             while ((ch = fgetc(file)) != EOF) {
-                void_string(ch, &flag_end_str, &flag_str_void, &count_void_str);
-                printf("\n %d",count_void_str);
                 if (opiton == 2) {
-                    
+                    flag_b(ch, &word);
+                    // int count_void_str = 0;
+                    // void_string(ch, &flag_end_str, &flag_str_void, &count_void_str);
+                    // count_str(ch, &k);
                 } else if (opiton == 1) {
                     flag_e(ch);
                 } else if (opiton == 3) {
