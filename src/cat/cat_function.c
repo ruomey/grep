@@ -27,10 +27,10 @@ int condition_args(char *argv){
     return flag;
 }
 
-void void_string(char ch, int *flag_end_str, int *flag_str_void, int *count_void_str){
+int void_string(char ch, int *flag_end_str, int *flag_str_void, int *count_void_str){
         if (ch == '\n') {
             if (!(*flag_str_void) && !(*flag_end_str)) {
-                printf("     %d  ", *count_void_str);
+                *flag_end_str = 1;
             } else if ((*flag_end_str) && !(*flag_str_void)){
                 *flag_str_void = 1;
                 (*count_void_str)++;
@@ -41,6 +41,7 @@ void void_string(char ch, int *flag_end_str, int *flag_str_void, int *count_void
             *flag_str_void = 0;
             *flag_end_str = 0;
         }
+        return (*count_void_str);
 }
 
 void count_str(char ch, int *count){
