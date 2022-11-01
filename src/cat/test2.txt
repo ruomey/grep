@@ -1,10 +1,5 @@
-<<<<<<< HEAD
+
  arbuz arbuzniy
 
 
 arbuuuz
-=======
-Hello hello
-Hell
-heeeelll
->>>>>>> origin/develop
