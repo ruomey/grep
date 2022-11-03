@@ -40,6 +40,7 @@ int void_string(char ch, int *flag_end_str, int *flag_str_void, int *count_void_
         } else {
             *flag_str_void = 0;
             *flag_end_str = 0;
+            *count_void_str = 0;
         }
         return (*count_void_str);
 }

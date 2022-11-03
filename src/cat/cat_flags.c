@@ -14,7 +14,7 @@ void open_file(int argc, char *argv[1000], int option){
         if (file != NULL) {
             int word = 0;
             int flag_end_str = 0, flag_str_void = 0;
-            int count_string = 0;
+            int count_string = 1;
             while ((ch = fgetc(file)) != EOF) {
                 if (option == 2) {
                     flag_b(ch, &word, &k);
@@ -24,16 +24,8 @@ void open_file(int argc, char *argv[1000], int option){
                     count_str(ch, &k);
                     flag_n(ch, k);
                 } else if (option == 4) {
-                    int flag_non_void = 0;
-                    count_string += void_string(ch, &flag_end_str, &flag_str_void, &flag_non_void);
-                    if (!count_string) {
-                        printf("%c", ch);
-                    } else if (!flag_non_void) {
-                        printf("\n%c",ch);
-                        count_string = 0;
-                    } else if (!count_string && !flag_non_void){
-                        printf("%c", ch);
-                    }
+                    void_string(ch, &flag_end_str, &flag_str_void, &count_string);
+                    flag_s(ch, count_string);
                 }
              }
         }
@@ -75,8 +67,12 @@ void flag_b(char ch, int *word, int* n){
     }
 }
 
-void flag_s(char ch, int *flag){
-    if (!(*flag)) {
-        printf("%c", ch);
+void flag_s(char ch, int count_string){
+    if (!count_string) {
+        printf ("%c", ch);
+    } else {
+        if (count_string == 1) {
+            printf("\n");
+        }
     }
 }
