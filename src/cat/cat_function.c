@@ -2,7 +2,7 @@
 #include <string.h>
 #include "cat.h"
 
-int change_flags(char *argv) {
+int condition_args(char *argv){
     int flag = 0;
     if (strcmp(argv, "-e") == 0 || strcmp(argv, "-E") == 0){
         flag = 1;
@@ -14,15 +14,6 @@ int change_flags(char *argv) {
         flag = 4;
     } else if (strcmp(argv, "-t" )== 0 || strcmp(argv, "-T") == 0) {
         flag = 5;
-    }   
-    return flag;
-}
-
-int condition_args(char *argv){
-    int flag = 0;
-    char *pointer = strchr(argv, '.');
-    if (pointer != NULL) {
-        flag = 1;
     }
     return flag;
 }
