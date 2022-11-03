@@ -4,7 +4,7 @@
 
 int condition_args(char *argv){
     int flag = 0;
-    if (strcmp(argv, "-e") == 0 || strcmp(argv, "-E") == 0){
+    if (strcmp(argv, "-e") == 0){
         flag = 1;
     } else if (strcmp(argv, "-b") == 0 || strcmp(argv, "--number-nonblank") == 0) {
         flag = 2;
@@ -12,8 +12,14 @@ int condition_args(char *argv){
         flag = 3;
     } else if (strcmp(argv, "-s") == 0 || strcmp(argv, "--squeeze-blank") == 0) {
         flag = 4;
-    } else if (strcmp(argv, "-t" )== 0 || strcmp(argv, "-T") == 0) {
+    } else if (strcmp(argv, "-t" ) == 0) {
         flag = 5;
+    } else if (strcmp(argv, "-v") == 0) {
+        flag = 6;
+    } else if (strcmp(argv, "-T") == 0) {
+        flag = 7;
+    } else if (strcmp(argv, "-E") == 0) {
+        flag = 8;
     }
     return flag;
 }

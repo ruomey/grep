@@ -30,13 +30,29 @@ void open_file(int argc, char *argv[1000], int option){
                 if (option == 2) {
                     flag_b(ch, &word, &k);
                 } else if (option == 1) {
-                    flag_e(ch);
+                    flag_e(ch, option);
                 } else if (option == 3) {
                     count_str(ch, &k);
                     flag_n(ch, k);
                 } else if (option == 4) {
                     void_string(ch, &flag_end_str, &flag_str_void, &count_string);
                     flag_s(ch, count_string);
+                } else if (option == 6) {
+                    flag_v(ch, option);
+                } else if (option == 5) {
+                    flag_t(ch, option);
+                } else if (option == 7) {
+                    if (ch == 9) {
+                        printf("^I");
+                    } else {
+                        printf("%c", ch);
+                    }
+                } else if (option == 8) {
+                    if (ch == 10) {
+                        printf("$\n");
+                    } else {
+                        printf("%c", ch);
+                    }
                 }
              }
         } else if (file == NULL){
@@ -47,14 +63,18 @@ void open_file(int argc, char *argv[1000], int option){
     }
 }
 
-void flag_e(char ch){
+void flag_e(char ch, int option){
+    flag_v(ch, option);
     if (ch == '\n') {
         printf("$\n");
-    } else {
-        printf("%c", ch);
     }
 }
-
+void flag_t (char ch, int option) {
+    flag_v(ch, option);
+    if (ch == '\t') {
+        printf ("^I ");
+    }
+}
 void flag_n(char ch, int count){
         if (ch == '\n') {
             printf("\n     %d  ", count);
@@ -93,4 +113,19 @@ void flag_s(char ch, int count_string){
 
 void non_flag(char ch) {
     printf("%c", ch);
+}
+
+void flag_v(char ch, int option) {
+    if (ch == 10 && option != 1) {
+        printf("\n ");
+    } 
+    if (ch == 9 && option !=5) {
+        printf("\t");
+    }
+    if (ch <= 31 && ch != 10 && ch != '\t'){
+        ch = ch + 64;
+        printf("^%c", ch);
+    } else if (ch > 31){
+        printf("%c", ch);
+    }
 }
