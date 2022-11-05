@@ -72,7 +72,7 @@ void flag_e(char ch, int option){
 void flag_t (char ch, int option) {
     flag_v(ch, option);
     if (ch == '\t') {
-        printf ("^I ");
+        printf ("^I");
     }
 }
 void flag_n(char ch, int count){
