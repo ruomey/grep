@@ -3,10 +3,9 @@
 #include <limits.h>
 int condition_args(char *argv);
 void flag_e(char ch, int option);
-void flag_n(char ch, int count);
+void flag_n(char ch, int *count, int *end_str, int *start_str);
 int void_string(char ch, int *flag_end_str, int *flag_str_void, int *count_void_str);
-void open_file(int argc, char *argv[1000], int opiton);
-void count_str(char ch, int *count);
+void open_file(int argc, char *argv[1000], int option, int isFlag);
 void flag_b(char ch, int *word, int* n);
 void flag_s(char ch, int count_string);
 void non_flag(char ch);

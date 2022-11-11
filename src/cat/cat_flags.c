@@ -3,63 +3,54 @@
 #include "cat.h"
 
 
-void open_file(int argc, char *argv[1000], int option){
-    int k = 1;
-    int i = 0;
-    if (option == 0) {
-        i = 1;
-    } else if (option != 0) {
-        i = 2;
-    }
-    int flag_opt3 = 0;
+void open_file(int argc, char *argv[1000], int option, int isFlag){
+    int k = 0;
+    int i = 1;
     for (; i < argc; i++) {
-        FILE *file = fopen(argv[i], "r");
-        char ch = ' ';
-        if (file != NULL) {
-            if (option == 3 && !flag_opt3) {
-                printf("     %d  ", k);
-                flag_opt3 = 1;
+        if (i != isFlag){
+            FILE *file = fopen(argv[i], "r");
+            char ch = ' ';
+            if (file != NULL) {
+                int word = 0;
+                int flag_end_str = 1, flag_str_void = 0;
+                int count_string = 1, start_str = 1;
+                while ((ch = fgetc(file)) != EOF) {
+                    if (option == 0) {
+                        non_flag(ch);
+                    }
+                    if (option == 2) {
+                        flag_b(ch, &word, &k);
+                    } else if (option == 1) {
+                        flag_e(ch, option);
+                    } else if (option == 3) {
+                        flag_n(ch, &k, &flag_end_str, &start_str);
+                    } else if (option == 4) {
+                        void_string(ch, &flag_end_str, &flag_str_void, &count_string);
+                        flag_s(ch, count_string);
+                    } else if (option == 6) {
+                        flag_v(ch, option);
+                    } else if (option == 5) {
+                        flag_t(ch, option);
+                    } else if (option == 7) {
+                        if (ch == 9) {
+                            printf("^I");
+                        } else {
+                            printf("%c", ch);
+                        }
+                    } else if (option == 8) {
+                        if (ch == 10) {
+                            printf("$\n");
+                        } else {
+                            printf("%c", ch);
+                        }
+                    }
+                }
+            } else if (file == NULL){
+                printf ("cat: %s: No such file or directory\n", argv[i]);
+                continue;
             }
-            int word = 0;
-            int flag_end_str = 0, flag_str_void = 0;
-            int count_string = 1;
-            while ((ch = fgetc(file)) != EOF) {
-                if (option == 0) {
-                    non_flag(ch);
-                }
-                if (option == 2) {
-                    flag_b(ch, &word, &k);
-                } else if (option == 1) {
-                    flag_e(ch, option);
-                } else if (option == 3) {
-                    count_str(ch, &k);
-                    flag_n(ch, k);
-                } else if (option == 4) {
-                    void_string(ch, &flag_end_str, &flag_str_void, &count_string);
-                    flag_s(ch, count_string);
-                } else if (option == 6) {
-                    flag_v(ch, option);
-                } else if (option == 5) {
-                    flag_t(ch, option);
-                } else if (option == 7) {
-                    if (ch == 9) {
-                        printf("^I");
-                    } else {
-                        printf("%c", ch);
-                    }
-                } else if (option == 8) {
-                    if (ch == 10) {
-                        printf("$\n");
-                    } else {
-                        printf("%c", ch);
-                    }
-                }
-             }
-        } else if (file == NULL){
-            printf ("cat: %s: No such file or directory\n", argv[i]);
-            continue;
+            fclose(file);
         }
-        fclose(file);
     }
 }
 
@@ -75,12 +66,24 @@ void flag_t (char ch, int option) {
         printf ("^I");
     }
 }
-void flag_n(char ch, int count){
+void flag_n(char ch, int *count, int *end_str, int *start_str){
+    if ((*end_str) && ch) {
+        *start_str = 1;
+    } else if (ch == '\n' && !(*end_str)) {
+        (*end_str) = 1;
+    }
+    if ((*end_str)&&(*start_str)) {
+        (*count) ++;
+        printf("\t %d %c", *count, ch);
         if (ch == '\n') {
-            printf("\n     %d  ", count);
+            (*end_str) = 1;
         } else {
-            printf("%c", ch);
+            (*end_str) = 0;
         }
+        (*start_str) = 0;
+    } else {
+        printf("%c", ch);
+    }
 }
 
 void flag_b(char ch, int *word, int* n){

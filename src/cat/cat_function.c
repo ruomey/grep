@@ -23,7 +23,6 @@ int condition_args(char *argv){
     }
     return flag;
 }
-
 int void_string(char ch, int *flag_end_str, int *flag_str_void, int *count_void_str){
         if (ch == '\n') {
             if (!(*flag_str_void) && !(*flag_end_str)) {
@@ -40,10 +39,4 @@ int void_string(char ch, int *flag_end_str, int *flag_str_void, int *count_void_
             *count_void_str = 0;
         }
         return (*count_void_str);
-}
-
-void count_str(char ch, int *count){
-    if (ch == '\n') {
-       (*count)++;
-    }
 }
