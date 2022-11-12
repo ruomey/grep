@@ -1,17 +1,17 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include "cat.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 int main(int argc, char *argv[]) {
-    int isFlag = 0;
-    int option = 0;
-    for (int i = 0; i < argc; i++){
-        if ((option = condition_args(argv[i]))){
-            isFlag = i;
-            break;
-        }
+  int isFlag = 0;
+  int option = 0;
+  for (int i = 0; i < argc; i++) {
+    if ((option = condition_args(argv[i]))) {
+      isFlag = i;
+      break;
     }
-    open_file(argc, argv, option, isFlag);
-    return 0;
+  }
+  open_file(argc, argv, option, isFlag);
+  return 0;
 }
