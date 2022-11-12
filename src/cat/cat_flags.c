@@ -4,6 +4,9 @@
 
 void open_file(int argc, char *argv[1000], int option, int isFlag) {
   int k = 0;
+  if (option == 2) {
+    k = 1;
+  }
   int i = 1;
   for (; i < argc; i++) {
     if (i != isFlag) {
@@ -73,7 +76,7 @@ void flag_n(char ch, int *count, int *end_str, int *start_str) {
   }
   if ((*end_str) && (*start_str)) {
     (*count)++;
-    printf("\t %d %c", *count, ch);
+    printf("%6d\t%c", *count, ch);
     if (ch == '\n') {
       (*end_str) = 1;
     } else {
@@ -91,7 +94,7 @@ void flag_b(char ch, int *word, int *n) {
     *word = 0;
   } else {
     if (!*word) {
-      printf("     %d  %c", *n, ch);
+      printf("%6d\t%c", *n, ch);
       *word = 1;
       *n = *n + 1;
     } else {
@@ -114,15 +117,17 @@ void non_flag(char ch) { printf("%c", ch); }
 
 void flag_v(char ch, int option) {
   if (ch == 10 && option != 1) {
-    printf("\n ");
+    printf("\n");
   }
   if (ch == 9 && option != 5) {
     printf("\t");
   }
-  if (ch <= 31 && ch != 10 && ch != '\t') {
+  if (ch <= 31 && ch != 10 && ch != '\t'){
     ch = ch + 64;
     printf("^%c", ch);
-  } else if (ch > 31) {
+  } else if (ch > 31 && ch != 127) {
     printf("%c", ch);
+  } else if (ch == 127) {
+    printf("^?");
   }
 }
