@@ -4,20 +4,14 @@
 #include "cat.h"
 
 int main(int argc, char *argv[]) {
-    if (condition_args(argv[1])) {
-        for (int i = 1; i < argc; i++) {
-            FILE *file = fopen(argv[i], "r");
-            if (file != NULL) {
-                char ch = ' ';
-                while ((ch = fgetc(file)) != EOF) {
-                    printf("%c", ch);
-                }
-            }
+    int isFlag = 0;
+    int option = 0;
+    for (int i = 0; i < argc; i++){
+        if ((option = condition_args(argv[i]))){
+            isFlag = i;
+            break;
         }
-    } else {
-        int option = change_flags(argv[1]);
-        open_file(argc, argv, option);
-
     }
+    open_file(argc, argv, option, isFlag);
     return 0;
 }
