@@ -1,8 +1,7 @@
 #include "cat.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-
+#include <string.h>cat 
 int main(int argc, char *argv[]) {
   int isFlag = 0;
   int option = 0;
