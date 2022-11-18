@@ -25,7 +25,7 @@ int condition_args(char *argv) {
   return flag;
 }
 int void_string(char ch, int *flag_end_str, int *flag_str_void,
-                int *count_void_str, int *flag_first_void) {
+                int *count_void_str) {
   if (ch == '\n') {
     if (!(*flag_str_void) && !(*flag_end_str)) {
       *flag_end_str = 1;
