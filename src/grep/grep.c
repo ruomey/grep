@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "../cat/cat.h"
 #include <string.h>
+#include <regex.h>
 void realloc_memory_int(int* temp, int *tempCount, int** templates);
 
 struct opt {
@@ -12,11 +13,9 @@ struct opt {
 };
 
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]){   
     char grep_option[] = {'e',':', 'v', ':', 'i',':','l', ':', 'n', ':'};
     struct opt *input_option = malloc(argc*sizeof(struct opt));
-    // int result = 0;
-    //int count_opt = 0;
     int count_arg = 0;
     int count = 0;
     for (int i = 1; i < argc; i++){
@@ -24,17 +23,14 @@ int main(int argc, char *argv[]){
             ;
         }
     }
-    //int i = 0;
     int option = 0;
     while ((option = getopt(argc, argv, grep_option)) != -1){
-        switch (option)
-        {
+        switch (option){
         case 'e':
             count_arg+=1;
             input_option[count].index = count;
             input_option[count].index_arg = count+1;
             input_option[count].opt = 'e';
-            strcpy(argv[count+1],optarg);
             count++;
             break;
         case 'v':
@@ -69,22 +65,38 @@ int main(int argc, char *argv[]){
             break;
         }
     }
-    for (int i = 0; i < count; i++){
-        printf("index is %d\n", input_option[i].index);
-         printf("index arg is %s\n", argv[input_option[i].index_arg]);
-          printf("opt is %c\n", input_option[i].opt);
-        
-    }
+    
     for (;optind < argc; optind++){
         FILE *file = fopen(argv[optind], "r");
         if (file != NULL){
-            ;
+            char *line = NULL;
+            size_t len = 0;
+            ssize_t read;
+            //printf("Never gonna give you up ");
+            while ((read = getline(&line, &len, file)) != -1){
+                //printf("never gonna let you down\n");
+                for(int i = 0; i < count; i++){
+                    regex_t arbuz_regex;
+                    int error = 0;
+                    if ( (error = regcomp(&arbuz_regex, argv[input_option[i].index_arg], REG_EXTENDED)) != 0 ) {
+                        //printf("Never gonna run around and desert you\n");
+                        continue;
+                    }
+                    if ( (error = regexec(&arbuz_regex, line, 0, NULL, 0)) == 0 ){
+                        //printf("Never gonna make you cry, ");
+                        
+                        printf("%s",line);
+                    }
+                    //printf("never gonna say goodbye\n");
+                    regfree(&arbuz_regex);
+                    //printf("Never gonna tell a lie and hurt you\n");
+                }
+            }
+            free(line);
         } else {
             printf("бляяя");
         }
-    }
-    for (int i = 0; i < argc; i++){
-        printf("argv is %s\n", argv[i]);
+        fclose(file);
     }
 }
 void realloc_memory_int(int* temp, int *tempCount, int** templates) {
