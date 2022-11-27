@@ -185,7 +185,7 @@ int main(int argc, char *argv[]){
                             }
                             if ((error = regexec(&arbuz_regex, line, 0, NULL, 0)) == 0 ){
                                 if (sizeFiles > 1) {
-                                    printf("%d:%s:%s",count_string, argv[files[i]], line);
+                                    printf("%s:%d:%s", argv[files[i]], count_string, line);
                                 } else {
                                     printf("%d:%s",count_string, line);
                                 }
