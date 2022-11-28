@@ -93,7 +93,7 @@ int main(int argc, char *argv[]){
             }
             free(line);
         } else {
-            printf("бляяя");
+            printf("fuck");
         }
         fclose(file);
     }
